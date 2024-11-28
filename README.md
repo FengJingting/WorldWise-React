@@ -5,6 +5,7 @@
 Tool: Vite
 Routing: React Router
 Routing: React Router
+fake API: data source npm run server to start
 
 ## Installation
 1. Clone the repository:
