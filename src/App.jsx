@@ -9,18 +9,26 @@ import CityList from "./components/CityList"
 // import AppLayout from "./pages/AppLayout"
 // import PageNav from "./components/PageNav"
 import { useEffect, useState } from "react"
+import CountryList from "./components/CountryList"
 function App() {
-  const [cities, setCities] = useState({})
-  const [isLoaded, setIsLoaded] = useState(false)
-
+  const [cities, setCities] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const BASE_URL = "http://localhost:8000";
   useEffect(() => {
-    async function fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((data) => {
-        setCities(data)
-        setIsLoaded(true)
-      })
-  },[])
+    async function fetchCities(){
+      try{
+        setIsLoading(true);
+        const res = await fetch(`${BASE_URL}/cities`);
+        const data = await res.json();
+        setCities(data);
+      }catch(err){
+        alert(err);
+      }finally{
+        setIsLoading(false);
+      }
+    }
+    fetchCities();
+    },[])
 
   return (
     
@@ -31,9 +39,9 @@ function App() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/app" element={<AppLayout />}>
-          <Route index element={<CityList></CityList>} />
-          <Route path="cities" element={<CityList></CityList>} />
-          <Route path="countries" element={<p>Countries</p>} />
+          <Route index element={<CityList cities={cities} isLoading={isLoading}></CityList>} />
+          <Route path="cities" element={<CityList cities={cities} isLoading={isLoading}></CityList>} />
+          <Route path="countries" element={<CountryList cities={cities} isLoading={isLoading} ></CountryList>} />
           <Route path="form" element={<p>Form</p>} />
         </Route>
         <Route path="*" element={<PageNotFound />} />

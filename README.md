@@ -4,8 +4,6 @@
 ## Technologies:
 Tool: Vite
 Routing: React Router
-Routing: React Router
-fake API: data source npm run server to start
 
 ## Installation
 1. Clone the repository:
@@ -15,8 +13,12 @@ fake API: data source npm run server to start
 2. Install dependencies:
     ```bash
     npm install
-3. Start the development server:
+3. start fake api
+   ```bash
+    npm i json-server 
+    npm run server
+4. Start the development server:
 
     ```bash
     npm run dev
-4. Open your browser
+5. Open your browser
